@@ -8,69 +8,57 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 
-function StoreItems({ id, name, price, image }) {
-  //   const {
-  //     getItemQuantity,
-  //     increaseCartQuantity,
-  //     decreaseCartQuantity,
-  //     removeFromCart,
-  //   } = useShoppingCart();
-  // const quantity = getItemQuantity(id);
+function StoreItems({ id, brand, price, image }) {
   return (
-    <Container maxWidth="sm">
-      <Card
-        sx={{
-          ml: "auto",
-          mr: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          mb: 3,
-        }}
-      >
-        <CardMedia
-          component="img"
-          height="350"
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-          // alt="coverImage"
-          sx={{ width: 200, height: 150, border: 1 }}
-        />
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box variant="body1" sx={{ mr: 50 }}>
-            {name}
+    <>
+      <div>
+        <Card
+          sx={{
+            width: 300,
+            height: 450,
+            display: "flex",
+            // justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            mt: 1,
+            // p: 1,
+          }}
+        >
+          <CardMedia
+            component="img"
+            src={image}
+            sx={{ width: 300, height: 200 }}
+          />
+          <Box sx={{ display: "flex", p: 3 }}>
+            <Typography variant="body1" sx={{ mr: 20 }}>
+              {brand}
+            </Typography>
+
+            <Typography variant="body1">{price}</Typography>
+          </Box>
+          <Box className="addBtns" sx={{ display: "flex" }}>
+            <Button size="small" variant="contained">
+              -
+            </Button>
+            <Typography sx={{ m: 1 }}>0 In Cart</Typography>
+            <Button size="small" variant="contained">
+              +
+            </Button>
+          </Box>
+          <Box className="remove">
+            <Button size="small" variant="contained">
+              remove
+            </Button>
           </Box>
 
-          <Box variant="body1">{price}</Box>
-        </Box>
-        <Box className="addBtns" sx={{ display: "flex" }}>
-          <Button size="small" variant="contained">
-            -
-          </Button>
-          <Typography sx={{ m: 1 }}>0 In Cart</Typography>
-          <Button size="small" variant="contained">
-            +
-          </Button>
-        </Box>
-        <Box className="remove">
-          <Button size="small" variant="contained">
-            remove
-          </Button>
-        </Box>
-        <Container maxWidth="sm">
-          {/* <Box className="addToCart"> */}
-          <Button
-            size="small"
-            fullWidth
-            variant="contained"
-            sx={{ mb: 2, mt: 2 }}
-          >
-            Add To Cart
-          </Button>
-          {/* </Box> */}
-        </Container>
-      </Card>
-    </Container>
+          <Container maxWidth="sm">
+            <Button size="small" fullWidth variant="contained" sx={{ mt: 2 }}>
+              Add To Cart
+            </Button>
+          </Container>
+        </Card>
+      </div>
+    </>
   );
 }
 
