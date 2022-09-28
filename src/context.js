@@ -1,7 +1,5 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fireBaseAuth } from "./utils/firebase";
 
 export const AppContext = createContext({
   products: [],
@@ -55,8 +53,7 @@ export const AppContextProvider = ({ children }) => {
         setUserAuthState,
       }}
     >
-      {" "}
-      {children}{" "}
+      {children}
     </AppContext.Provider>
   );
 };
