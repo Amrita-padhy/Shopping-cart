@@ -1,107 +1,90 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { fontSize } from "@mui/system";
-import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Margin } from "@mui/icons-material";
+import { useAppContext } from "../context";
+
 function Navbar() {
+  const pointer = { cursor: "pointer" };
+  const navigate = useNavigate();
+  const { userAuthState, setUserAuthState } = useAppContext();
+  const logout = () => {
+    localStorage.setItem("isLoggedIn", false);
+    navigate("/");
+    setUserAuthState(false);
+  };
   return (
-    <div className="navbar ">
-      <AppBar
-        position="static"
-        color="inherit"
-        sx={{ width: "100vw", position: "static" }}
-      >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" color="inherit">
+        <Toolbar>
+          {userAuthState ? (
+            <Box
               sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".2rem",
-                color: "black",
-                textDecoration: "none",
-                border: 2,
-                borderColor: "GrayText",
-                borderRadius: 5,
-                backgroundColor: "bisque",
-                p: 0.5,
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "space-around",
               }}
             >
-              CART
-            </Typography>
-            <Box sx={{ display: "flex", flexGrow: 1, position: "relative" }}>
-              <Box
-                sx={{
-                  mr: 2,
-                  fontWeight: 900,
-                  letterSpacing: ".1rem",
-                  fontSize: 20,
-                }}
+              <Typography
+                variant="h6"
+                component="div"
+                style={pointer}
+                sx={{ mr: 2 }}
+                onClick={() => navigate("/products")}
               >
-                <NavLink to="/" as={NavLink}>
-                  Home
-                </NavLink>
-              </Box>
-              <Box
-                sx={{
-                  mr: 2,
-                  fontWeight: 900,
-                  letterSpacing: ".1rem",
-                  fontSize: 20,
-                }}
+                Products
+              </Typography>
+              <Typography
+                variant="h6"
+                component="div"
+                style={pointer}
+                onClick={() => navigate("/favorites")}
               >
-                <NavLink to="/about" as={NavLink}>
-                  About
-                </NavLink>
-              </Box>
-              <Box
-                sx={{
-                  fontWeight: 900,
-                  letterSpacing: ".1rem",
-                  fontSize: 20,
-                }}
-              >
-                <NavLink to="/shop" as={NavLink}>
-                  Shop
-                </NavLink>
-              </Box>
+                Favourite products
+              </Typography>
             </Box>
+          ) : (
+            <Box sx={{ display: "flex", flexGrow: 1 }}></Box>
+          )}
+          {userAuthState ? (
+            <Button
+              variant="text"
+              component="button"
+              color="inherit"
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          ) : (
             <Box>
               <Button
-                size="large"
+                variant="text"
+                component="button"
                 color="inherit"
-                sx={{ border: 1, width: 50, height: 50, borderRadius: "50%" }}
+                onClick={() => navigate("/")}
               >
-                <ShoppingCartIcon />
-                <Box>
-                  <Button
-                    variant="text"
-                    color="error"
-                    sx={{
-                      position: "absolute",
-                    }}
-                  >
-                    10
-                  </Button>
-                </Box>
+                Login
+              </Button>
+              <Button
+                variant="text"
+                component="button"
+                color="inherit"
+                onClick={() => navigate("/registration")}
+              >
+                SignUp
               </Button>
             </Box>
-          </Toolbar>
-        </Container>
+          )}
+        </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 }
 
